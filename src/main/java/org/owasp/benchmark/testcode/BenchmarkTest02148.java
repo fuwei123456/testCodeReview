@@ -31,11 +31,23 @@ public class BenchmarkTest02148 extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Handles HTTP GET requests the same as HTTP POST requests.
+	 */
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
+	/**
+	 * Handles POST requests by executing an OS-specific command that includes a transformed "vector" request parameter and writing the command output to the response.
+	 *
+	 * The request parameter "vector" is read (defaults to empty string) and transformed before being appended to an OS command; the servlet then executes that command and streams its results to the HTTP response.
+	 *
+	 * @param request  the HttpServletRequest providing client request data (reads parameter "vector")
+	 * @param response the HttpServletResponse used to write command output (content type set to "text/html")
+	 * @throws ServletException if an I/O error occurs while executing the external command
+	 */
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
@@ -74,7 +86,12 @@ public class BenchmarkTest02148 extends HttpServlet {
 			System.out.println("Problem executing cmdi - TestCase");
             throw new ServletException(e);
 		}
-	}  // end doPost
+	}  /**
+	 * Applies an internal sequence of transformations to the provided parameter and returns the result of a helper operation invoked with the fixed string "barbarians_at_the_gate".
+	 *
+	 * @param param the input string to be processed (the method performs internal transformations on this value; the final returned value is produced from the fixed internal string "barbarians_at_the_gate")
+	 * @return the string produced by the helper operation invoked with "barbarians_at_the_gate"
+	 */
 	
 	private static String doSomething(String param) throws ServletException, IOException {
 
